@@ -10,7 +10,7 @@ ENV VIRTUAL_ENV=/home/stonks/venv
 RUN virtualenv -p python3 $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-COPY Pipfile* .
+COPY Pipfile* ./
 RUN pipenv lock --keep-outdated --requirements > requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
