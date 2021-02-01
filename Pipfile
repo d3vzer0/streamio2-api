@@ -8,6 +8,8 @@ fastapi = "*"
 uvicorn = "*"
 elasticsearch = {extras = ["async"], version = "*"}
 elasticsearch-dsl = "*"
+aiohttp = "*"
+dateparser = "*"
 
 [dev-packages]
 pytest = "*"
