@@ -23,6 +23,6 @@ ENV FASTAPI_HOST="${FASTAPI_HOST}"
 ARG CORS_DOMAIN=http://localhost
 ENV CORS_DOMAIN="${CORS_DOMAIN}"
 
-ADD . /home/streamio2/
+ADD . /home/stonks/
 
 ENTRYPOINT ["python", "run.py"]
