@@ -4,8 +4,11 @@ from app.environment import config
 from .schema import SearchOut, SearchIn, HistogramIn
 from .utils import AbstractSearch
 from typing import List
+from ssl import create_default_context
+import ssl
 
-es_client = Elasticsearch([config['es_hosts']])
+context = create_default_context(cafile=config['es_ca_path'])
+es_client = Elasticsearch([config['es_hosts']], ssl_context=context)
 router = APIRouter()
 
 @router.post('/search', response_model=List[SearchOut])

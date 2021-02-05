@@ -24,10 +24,13 @@ class AbstractSearch:
         self.__exclude(exclude)
         self.__query(query)
         self.__aggregations(aggregations)
-        return AbstractSearch.es2api(
-            self.search[start:start+limit].execute().to_dict(),
-            start, limit
-        )
+        try:
+            return AbstractSearch.es2api(
+                self.search.sort('-publish_date')[start:start+limit].execute().to_dict(),
+                start, limit
+            )
+        except Exception as err:
+            print(err)
 
     async def get_hist(self, query='*', filters=None, field=None, interval=None, exclude=None,
         to_date=None, from_date=None, start=0, limit=30):
