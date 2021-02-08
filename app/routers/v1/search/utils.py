@@ -1,4 +1,4 @@
-from elasticsearch_dsl import Search, MultiSearch, A
+from elasticsearch_dsl import Search, MultiSearch, A, Q
 
 class AbstractSearch:
     def __init__(self, es_client=None, index=None):
@@ -152,7 +152,9 @@ class AbstractMultiSearch:
     def __filters(self, search, filters, to_date, from_date):
         search = search.filter('range', **{f'publish_date': {'gte':from_date ,'lte':to_date}})
         for key, value in filters.items():
-           search = search.filter(value['type'], **{f'{key}.keyword': value[value['type']]})
+            or_filters = [Q('match', **{f'{key}.keyword': filter[filter['type']]}) for filter in value]
+            # search = search.filter(filter['type'], **{f'{key}.keyword': filter[filter['type']]})
+            search = search.query(Q('bool', should=or_filters, minimum_should_match=1))
         return search
 
     def __exclude(self, search, exclude):

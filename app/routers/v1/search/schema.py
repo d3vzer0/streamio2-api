@@ -68,7 +68,7 @@ class SearchIn(BaseModel):
     limit: int = 20
     from_date: datetime = default_from()
     to_date: datetime = default_to()
-    filters: Optional[Dict[str, SearchFilter]] = {}
+    filters: Optional[Dict[str, List[SearchFilter]]] = {}
     exclude: Optional[List[SearchExclude]] = []
     aggregations: Optional[Dict[str, AggregationOptions]] = {}
 
